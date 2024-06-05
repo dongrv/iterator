@@ -22,7 +22,7 @@ func New() *Iter {
 }
 
 func (it *Iter) Start(x int64) Iterator {
-	atomic.AddInt64(&it.x, x)
+	atomic.SwapInt64(&it.x, x)
 	return it
 }
 
@@ -35,7 +35,7 @@ func (it *Iter) Step(x int64) Iterator {
 }
 
 func (it *Iter) Offset(x int64) Iterator {
-	atomic.SwapInt64(&it.x, x)
+	atomic.AddInt64(&it.x, x)
 	return it
 }
 
